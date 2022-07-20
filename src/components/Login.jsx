@@ -37,7 +37,7 @@ const Login = () => {
     return (
         <ThemeProvider theme={theme}>
             <Container>
-                <Grid className='login' container>
+                <Grid className='wrapper' container>
                     <Grid width={400} alignItems={"center"} direction={"column"} container>
                         <Box p={5}>
                             <Button

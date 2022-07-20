@@ -4,7 +4,7 @@ import {Container, Grid} from "@mui/material";
 const Loader = () => {
     return (
         <Container>
-            <Grid className='login' container>
+            <Grid className='wrapper' container>
                 <Grid
                     width={400}
                     alignItems={"center"}

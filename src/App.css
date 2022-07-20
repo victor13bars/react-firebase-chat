@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-.login {
+.wrapper {
     height: calc(100vh - 50px);
     justify-content: center;
     align-items: center;
