@@ -4,6 +4,23 @@ import App from "./App";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore"
 import "firebase/compat/auth"
+import {createTheme} from "@mui/material/styles";
+import {purple} from "@mui/material/colors";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: purple[500],
+        },
+        secondary: {
+            main: '#11cb5f',
+        },
+        neutral: {
+            main: '#fff',
+            contrastText: '#fff',
+        },
+    },
+});
 
 firebase.initializeApp({
     apiKey: "AIzaSyDc154QI2vyoGbA6QDSNCXneEBykoFDQzs",
@@ -24,7 +41,8 @@ root.render(
     <Context.Provider value={{
         firebase,
         firestore,
-        auth
+        auth,
+        theme
     }}>
         <App/>
     </Context.Provider>
