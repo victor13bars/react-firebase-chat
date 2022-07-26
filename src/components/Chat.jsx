@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {Context} from "../index";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {Avatar, Button, Container, Grid, TextField, ThemeProvider} from "@mui/material";
@@ -11,12 +11,16 @@ const Chat = () => {
     const {auth, firestore, theme} = useContext(Context)
     const [user] = useAuthState(auth)
     const [value, setValue] = useState('')
+    const h2ref = useRef();
     const [messages, loading] = useCollectionData(
         firestore.collection('messages').orderBy('createdAt')
     )
+    const scrolling = () => {
+        h2ref.current?.scrollIntoView(true)
+    }
 
     const sendMessage = async () => {
-        firestore.collection('messages').add({
+        await firestore.collection('messages').add({
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
@@ -24,12 +28,16 @@ const Chat = () => {
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         })
         setValue('')
+        scrolling()
     }
+
+    useEffect(() => {
+        scrolling()
+    }, [loading]);
 
     if (loading) {
         return <Loader/>
     }
-    console.log(messages)
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -38,6 +46,7 @@ const Chat = () => {
                         {messages.map((message, index) =>
                             <Message key={index} message={message} user={user}/>
                         )}
+                        <div ref={h2ref}/>
                     </div>
                     <Grid
                         container
